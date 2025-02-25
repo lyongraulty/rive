@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rive Animation</title>
+    <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full height of the viewport */
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        /* Outer fixed container */
+        .rive-wrapper {
+            width: 2000px; /* Fixed width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Responsive inner container */
+        .rive-container {
+            width: 100%;
+            min-width: 600px;
+            max-width: 2000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="rive-wrapper">
+        <div class="rive-container">
+            <canvas id="riveCanvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function resizeCanvas() {
+            const canvas = document.getElementById("riveCanvas");
+
+            // Ensure the canvas fully fills the inner container
+            canvas.style.width = "100%";
+            canvas.style.height = "auto";
+            
+            // Resize Rive drawing surface for proper clarity
+            if (r) {
+                r.resizeDrawingSurfaceToCanvas();
+            }
+        }
+
+        // Initialize Rive animation
+        const r = new rive.Rive({
+            src: "https://raw.githubusercontent.com/lyongraulty/Rive/main/kbar_buttons_WHITE.riv?raw=true",
+            canvas: document.getElementById("riveCanvas"),
+            autoplay: true,
+            stateMachines: "State Machine 1",
+            onLoad: () => {
+                console.log("Rive animation loaded!");
+                resizeCanvas(); // Resize after loading
+                r.play();
+            }
+        });
+
+        // Resize canvas when window resizes
+        window.addEventListener("resize", resizeCanvas);
+    </script>
+
+</body>
+</html>
