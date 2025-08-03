@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rive Animation</title>
-  <script src="https://unpkg.com/@rive-app/webgl2@latest"></script>
+  <script src="https://unpkg.com/@rive-app/webgl2@2.30.3"></script>
   <style>
-    /* Reset margins and set up a full-viewport container */
     body {
       margin: 0;
       padding: 0;
@@ -16,15 +15,13 @@
       height: 100vh;
       background-color: #ffffff;
     }
-    /* Responsive wrapper that adapts to the iframe’s width */
     .rive-wrapper {
       width: 100%;
-      max-width: 2000px; /* Optional maximum width */
+      max-width: 2000px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    /* Inner container for centering the canvas */
     .rive-container {
       width: 100%;
       min-width: 600px;
@@ -32,7 +29,6 @@
       justify-content: center;
       align-items: center;
     }
-    /* Canvas scales with its container */
     canvas {
       width: 100%;
       height: auto;
@@ -47,45 +43,31 @@
     </div>
   </div>
   <script>
-    // Function to resize the canvas for clarity
+    let riveInstance;
+
     function resizeCanvas() {
       const canvas = document.getElementById("riveCanvas");
       canvas.style.width = "100%";
       canvas.style.height = "auto";
-      if (r) {
-        r.resizeDrawingSurfaceToCanvas();
+      if (riveInstance) {
+        riveInstance.resizeDrawingSurfaceToCanvas();
       }
     }
 
-    // Initialize the Rive animation
-    const r = new rive.Rive({
+    riveInstance = new rive.Rive({
       src: "https://raw.githubusercontent.com/lyongraulty/Rive/main/chroma_2.riv?raw=true",
       canvas: document.getElementById("riveCanvas"),
+      renderer: "webgl2", // ✅ Ensures vector feathering is supported
       autoplay: true,
       stateMachines: "State Machine 1",
       onLoad: () => {
         console.log("Rive animation loaded!");
         resizeCanvas();
-        r.play();
+        riveInstance.play();
       }
     });
 
-    // Resize the canvas on window resize
     window.addEventListener("resize", resizeCanvas);
   </script>
-  <script src="https://unpkg.com/@rive-app/webgl2@2.30.3"></script>
-<script>
-  const r = new rive.Rive({
-    src: "https://.../chroma_2.riv",
-    canvas: document.getElementById("riveCanvas"),
-    renderer: "webgl2",
-    autoplay: true,
-    stateMachines: "State Machine 1",
-    onLoad: () => {
-      resizeCanvas();
-      r.play();
-    }
-  });
-</script>
 </body>
 </html>
