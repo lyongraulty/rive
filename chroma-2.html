@@ -73,5 +73,19 @@
     // Resize the canvas on window resize
     window.addEventListener("resize", resizeCanvas);
   </script>
+  <script src="https://unpkg.com/@rive-app/webgl2@2.30.3"></script>
+<script>
+  const r = new rive.Rive({
+    src: "https://.../chroma_2.riv",
+    canvas: document.getElementById("riveCanvas"),
+    renderer: "webgl2",
+    autoplay: true,
+    stateMachines: "State Machine 1",
+    onLoad: () => {
+      resizeCanvas();
+      r.play();
+    }
+  });
+</script>
 </body>
 </html>
